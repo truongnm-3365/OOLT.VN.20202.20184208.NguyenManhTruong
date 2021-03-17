@@ -54,39 +54,39 @@ public class DataTest{
     }
 
     public static void testSetYear(int year, MyDate d,int opt){
-        if(opt==0 ) {
+        if(opt==0) {
             d.setYear(year);
             assertEquals(year, d.getYear());
             System.out.println("SetYear() chạy đúng");
         }
         else if (opt==1) {
             d.setYear(year);
-            assertTrue(year != d.getYear());
+            assertTrue(year!=d.getYear());
 
         }
     }
 
     public static void testSetMonth(int month, MyDate d,int opt){
-        if(opt==0 ) {
+        if(opt==0) {
             d.setMonth(month);
             assertEquals(month, d.getMonth());
             System.out.println("setMonth() chạy đúng");
         }
         else if (opt==1) {
             d.setMonth(month);
-            assertTrue(month != d.getMonth());
+            assertTrue(month!=d.getMonth());
 
         }
     }
     public static void testSetDay(int day, MyDate d,int opt){
-        if(opt==0 ) {
+        if(opt==0) {
             d.setDay(day);
             assertEquals(day, d.getDay());
             System.out.println("setDay() chạy đúng");
         }
         else if (opt==1) {
             d.setDay(day);
-            assertTrue(day != d.getDay());
+            assertTrue(day!=d.getDay());
 
         }
     }
