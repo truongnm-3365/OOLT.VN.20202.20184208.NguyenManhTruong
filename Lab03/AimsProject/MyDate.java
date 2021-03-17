@@ -1,134 +1,117 @@
-import java.text.SimpleDateFormat;
-import java.util.*;
-public class MyDate {
-    private String day;
-    private String month;
-    private String year;
-    private String date;
+import java.time.LocalDate;
+import java.util.Scanner;
 
-    public void setDay(String day)
-    {
-        this.day=day;
-    }
-    public String getDay()
-    {
+public class MyDate {
+    private int day;
+    private int month;
+    private int year;
+    public String date;
+    public int getDay() {
         return day;
     }
 
-    public void setMonth(String month)
-    {
-        this.month=month;
+    public void setDay(int day) {
+        if (day > 0 && day <= getDaysOfMonth(month, year))
+            this.day = day;
+        else {
+            System.out.println("Lỗi không tồn tại ngày đó");
+        }
     }
-    public String getMonth()
-    {
+
+    public int getMonth() {
         return month;
     }
 
-    public void setYear(String year)
-    {
-        this.year=year;
+    public void setMonth(int month) {
+        if (month > 0 && month <= 12)
+            this.month = month;
+        else {
+            System.out.println("Lỗi không tồn tại tháng đó");
+        }
     }
-    public String getYear()
-    {
+
+    public int getYear() {
         return year;
     }
 
-    public String getDate()
-    {
-        date=this.day+"/"+this.month+"/"+this.year;
-        System.out.println("Ngày vừa nhập (dd/mm/yyyy) : " + date);
-        return date;
-    }
-    
-    public String printCurrentDate()
-    {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-	    Date date = new Date();
-        System.out.println("Ngày hiện tại : "+formatter.format(date));
-	    return formatter.format(date);
+    public void setYear(int year) {
+        if (year >= 0)
+            this.year = year;
+        else {
+            System.out.println("Lỗi không tồn tại năm đó");
+        }
     }
 
-    public void accept()
-    {
+    public void print() {
+        System.out.println("My Date (dd/mm/yyyy): " + day + "/" + month + "/" + year);
+    }
+
+    public void accept() {
         Scanner keyboard = new Scanner(System.in);
-        String outputMonth[]={"01","02","03","04","05","06","07","08","09","10","11","12"};
-        String outputDay[]={"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15"
-                            ,"16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
-        int check,dayMax,year,i;
-        dayMax=28;
-        String m,y,d;  
-            System.out.print("Nhập tháng (Nhập số): ");
-            do{
-    
-                check=0;
-                m = keyboard.next();
-                for(i=0;i<outputMonth.length;i++)
-                {
-                    if(Integer.parseInt(m)==Integer.parseInt(outputMonth[i]))
-                    {
-                        check=1;
-                        break;
-                    }
-                }
-                if(check==1)break;
-                System.out.print("Không đúng tháng nhập lại: ");
-            }while(check==0);
-            setMonth(outputMonth[i]);
-            System.out.print("Nhập năm(Nhập đủ 4 số): ");
-            do{
-                y = keyboard.next();
-                if(y.matches("\\d{4}"))
-                {
-                    break;
-                   
-                }
-                System.out.print("Không đúng định dạng năm nhập lại: ");
-            }while(true);
-            setYear(y);
-            year = Integer.parseInt(y);
-            if(Integer.parseInt(m)==1 || Integer.parseInt(m)==3 || Integer.parseInt(m)==5 || Integer.parseInt(m)==7 || Integer.parseInt(m)==8 || Integer.parseInt(m)==10 || Integer.parseInt(m)==12)
-            {
-                dayMax=31;
-            }
-            else if(Integer.parseInt(m)==2)
-            {
-                if((year%4==0 && year%100!=0) || (year%400==0))
-                {
-                    dayMax = 29;
-                }else{
-                    dayMax = 28;
-                }
-            }
-            else if(Integer.parseInt(m)==4 || Integer.parseInt(m)==6 || Integer.parseInt(m)==9 || Integer.parseInt(m)==11)
-            {
-                dayMax=30;
-            }
-            System.out.print("Nhập ngày: ");
-            do{
-    
-                check=0;
-                d = keyboard.next();
-                for(i=0;i<outputDay.length;i++)
-                {
-                    if(Integer.parseInt(d)==Integer.parseInt(outputDay[i]))
-                    {
-                        check=1;
-                        break;
-                    }
-                }
-                if(check==1 && Integer.parseInt(d)<=dayMax)
-                {
-                    break;
-                }else check=0;
-                
-                System.out.print("Không đúng ngày nhập lại: ");
-            }while(check==0);
-            setDay(outputDay[i]);
-           
+        System.out.println("Nhập ngày (dd/mm/yyyy) : ");
+        this.date = keyboard.nextLine();
+        int[] Date = validDate(date);
+        if (Date != null) {
+            setMonth(Date[0]);
+            setDay(Date[1]);
+            setYear(Date[2]);
+        }else{
+            System.out.println("Không tồn tại ngày đó hoặc nhập sai yêu cầu");
+        }
     }
 
-    public MyDate()
+    public int[] validDate(String date) {
+        String[] itemsDate = date.split("/", 3);
+        if (itemsDate.length < 3) {
+            return null;
+        }
+        String day = itemsDate[0], month = itemsDate[1], year = itemsDate[2];
+        int m,y,d;
+        try{
+            m = Integer.parseInt(month);
+        }catch (NumberFormatException e){
+            return null;
+        }
+        try{
+            d = Integer.parseInt(day);
+        }catch (NumberFormatException e){
+            return null;
+        }
+        try{
+            y = Integer.parseInt(year);
+        }catch (NumberFormatException e){
+            return null;
+        }
+
+
+        if (d <= getDaysOfMonth(m, y)) {
+            int[] Date = {m, d, y};
+            return Date;
+        } else {
+            return null;
+        }
+    }
+
+
+    public int getDaysOfMonth(int month, int year)
     {
-        super();
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+            return 31;
+        else if(month==2)
+        {
+            if((year%4==0 && year%100!=0) || (year%400==0))
+            {
+                return 29;
+            }else{
+                return 28;
+            }
+        }
+        else return 30;
+    }
+
+    public MyDate() {
+        this.day = LocalDate.now().getDayOfMonth();
+        this.month = LocalDate.now().getMonthValue();
+        this.year = LocalDate.now().getYear();
     }
 }
