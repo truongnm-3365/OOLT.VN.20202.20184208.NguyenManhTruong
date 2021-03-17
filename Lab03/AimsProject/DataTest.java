@@ -27,13 +27,13 @@ public class DataTest{
     }
     
     
-    public static void testAccept(MyDate d,int option){
-        if (option == 0) {
+    public static void testAccept(MyDate d,int opt){
+        if (opt==0) {
             d.accept();
             assertTrue(d.validDate(d.date)!=null);
             System.out.println("acceptDay() chạy đúng");
         }
-        else if (option == 1){
+        else if (opt==1){
             d.accept();
             assertTrue(d.validDate(d.date)==null);
 
@@ -53,38 +53,38 @@ public class DataTest{
         System.out.println("getYear() chạy đúng");
     }
 
-    public static void testSetYear(int year, MyDate d,int option){
-        if(option == 0 ) {
+    public static void testSetYear(int year, MyDate d,int opt){
+        if(opt==0 ) {
             d.setYear(year);
             assertEquals(year, d.getYear());
             System.out.println("SetYear() chạy đúng");
         }
-        else if (option == 1) {
+        else if (opt==1) {
             d.setYear(year);
             assertTrue(year != d.getYear());
 
         }
     }
 
-    public static void testSetMonth(int month, MyDate d,int option){
-        if(option == 0 ) {
+    public static void testSetMonth(int month, MyDate d,int opt){
+        if(opt==0 ) {
             d.setMonth(month);
             assertEquals(month, d.getMonth());
             System.out.println("setMonth() chạy đúng");
         }
-        else if (option == 1) {
+        else if (opt==1) {
             d.setMonth(month);
             assertTrue(month != d.getMonth());
 
         }
     }
-    public static void testSetDay(int day, MyDate d,int option){
-        if(option == 0 ) {
+    public static void testSetDay(int day, MyDate d,int opt){
+        if(opt==0 ) {
             d.setDay(day);
             assertEquals(day, d.getDay());
             System.out.println("setDay() chạy đúng");
         }
-        else if (option == 1) {
+        else if (opt==1) {
             d.setDay(day);
             assertTrue(day != d.getDay());
 
